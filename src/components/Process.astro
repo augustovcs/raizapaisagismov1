@@ -1,0 +1,74 @@
+---
+const steps = [
+  {
+    number: "01",
+    title: "CONHECIMENTO",
+    description: "Entendemos suas necessidades, estilo de vida e expectativas.",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-8 h-8 text-accent mx-auto mb-4"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>`
+  },
+  {
+    number: "02",
+    title: "CONCEITO",
+    description: "Desenvolvemos o projeto com criatividade, técnica e sensibilidade.",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-8 h-8 text-accent mx-auto mb-4"><path d="M12 2v2" /><path d="M12 20v2" /><path d="M4.93 4.93l1.41 1.41" /><path d="M17.66 17.66l1.41 1.41" /><path d="M2 12h2" /><path d="M20 12h2" /><path d="M6.34 17.66l-1.41 1.41" /><path d="M19.07 4.93l-1.41 1.41" /></svg>`
+  },
+  {
+    number: "03",
+    title: "PLANEJAMENTO",
+    description: "Detalharmos cada etapa para garantir eficiência e qualidade.",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-8 h-8 text-accent mx-auto mb-4"><rect x="3" y="4" width="18" height="18" rx="2" ry="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg>`
+  },
+  {
+    number: "04",
+    title: "EXECUÇÃO",
+    description: "Transformamos o projeto em realidade com excelência e cuidado.",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-8 h-8 text-accent mx-auto mb-4"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" /></svg>`
+  },
+  {
+    number: "05",
+    title: "HARMONIA",
+    description: "Acompanhamos e cuidamos para que a natureza floresça sempre.",
+    icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="w-8 h-8 text-accent mx-auto mb-4"><path d="M12 22c0-4.4-3.6-8-8-8" /><path d="M12 22c0-4.4 3.6-8 8-8" /><path d="M12 14v8" /><path d="M12 14c0-2.8-2.2-5-5-5s-5 2.2-5 5" /><path d="M12 14c0-2.8 2.2-5 5-5s5 2.2 5 5" /></svg>`
+  }
+];
+---
+
+<section id="processo" class="bg-[#181f19] text-light py-24">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <div class="text-center mb-20">
+      <h3 class="text-xs font-medium tracking-[0.2em] text-accent/80 uppercase mb-4">Nosso Processo</h3>
+      <h2 class="text-3xl md:text-4xl font-serif">
+        DO CONCEITO À <span class="text-light/80">REALIZAÇÃO.</span>
+      </h2>
+    </div>
+
+    <div class="relative">
+      <!-- Connecting Line -->
+      <div class="hidden lg:block absolute top-12 left-0 w-full h-px bg-accent/20"></div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+        {steps.map((step, index) => (
+          <div class="relative text-center group">
+            <div class="bg-[#181f19] relative z-10 mx-auto w-16">
+              <div class="transition-transform duration-500 group-hover:scale-110">
+                <Fragment set:html={step.icon} />
+              </div>
+            </div>
+            
+            <h4 class="text-xs font-medium tracking-widest text-accent mb-2 uppercase mt-6">
+              {step.number}. {step.title}
+            </h4>
+            <p class="text-xs text-light/70 leading-relaxed max-w-[200px] mx-auto">
+              {step.description}
+            </p>
+
+            <!-- Arrow for Mobile/Tablet -->
+            {index < steps.length - 1 && (
+              <div class="lg:hidden w-px h-8 bg-accent/20 mx-auto my-6"></div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

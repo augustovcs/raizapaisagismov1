@@ -1,0 +1,167 @@
+---
+const originalProjects = [
+  { img: "/images/hero_bg.png", alt: "Projeto Residencial" },
+  { img: "/images/about_img.png", alt: "Projeto Comercial" },
+  { img: "/images/hero_bg.png", alt: "Paisagismo Corporativo" },
+  { img: "/images/about_img.png", alt: "Jardim de Inverno" },
+];
+
+// Duplicate to ensure the track is wider than most viewports
+const trackProjects = [...originalProjects, ...originalProjects];
+---
+
+<section id="portfolio" class="bg-light text-primary md:h-[57rem] py-24 overflow-hidden">
+  <div class="w-full relative">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 relative text-center mb-16">
+      <h3 class="text-xs font-medium tracking-[0.2em] text-primary/60 uppercase mb-4">Portfólio</h3>
+      <h2 class="text-3xl md:text-4xl font-serif">
+        PROJETOS QUE INSPIRAM <br/>
+        <span class="text-primary/70">E TRANSFORMAM.</span>
+      </h2>
+    </div>
+
+    <!-- 2D Infinite Carousel -->
+    <div class="carousel-container flex overflow-hidden w-full relative group">
+      <!-- First Track -->
+      <div class="carousel-track flex space-x-4 md:space-x-8 pr-4 md:pr-8">
+        {trackProjects.map((project, index) => (
+          <div 
+            class="carousel-item relative h-[350px] md:h-[450px] w-[250px] sm:w-[300px] md:w-[400px] flex-shrink-0 rounded-lg overflow-hidden cursor-pointer shadow-lg"
+            data-img={project.img}
+          >
+            <div class="absolute inset-0 bg-primary/30 mix-blend-multiply z-10 hover:bg-transparent transition-colors duration-500 pointer-events-none"></div>
+            <img 
+              src={project.img} 
+              alt={project.alt} 
+              class={`w-full h-full object-cover transition-transform duration-700 hover:scale-110 ${index % 2 !== 0 ? 'filter grayscale-[30%]' : ''}`}
+            />
+          </div>
+        ))}
+      </div>
+      <!-- Second Track (Duplicate for infinite effect) -->
+      <div class="carousel-track flex space-x-4 md:space-x-8 pr-4 md:pr-8" aria-hidden="true">
+        {trackProjects.map((project, index) => (
+          <div 
+            class="carousel-item relative aspect-square w-[250px] sm:w-[300px] md:w-[400px] flex-shrink-0 rounded-lg overflow-hidden cursor-pointer shadow-lg"
+            data-img={project.img}
+          >
+            <div class="absolute inset-0 bg-primary/30 mix-blend-multiply z-10 hover:bg-transparent transition-colors duration-500 pointer-events-none"></div>
+            <img 
+              src={project.img} 
+              alt={project.alt} 
+              class={`w-full h-full object-cover transition-transform duration-700 hover:scale-110 ${index % 2 !== 0 ? 'filter grayscale-[30%]' : ''}`}
+            />
+            
+          </div>
+          
+        ))}
+      </div>
+      
+    </div>
+       
+  </div>
+
+  <!-- Image Modal -->
+  <div id="portfolio-modal" class="fixed inset-0 z-[100] bg-[#0f140f]/90 flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 p-4 lg:p-12">
+    <button id="close-modal" class="absolute top-6 right-6 text-[#f2efe9]/70 hover:text-[#f2efe9] transition-colors p-2 z-10">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+    <div class="relative w-full h-full max-w-5xl mx-auto flex items-center justify-center">
+      <img id="modal-image" src="" alt="Projeto em Destaque" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl scale-95 transition-transform duration-300" />
+    </div>
+  </div>
+  <div class="flex justify-center mt-12">
+  <a 
+    href="mailto:contato@raizapaisagismo.com.br" 
+    class="inline-block border border-accent text-accent hover:bg-accent hover:text-primary px-8 py-4 text-xs font-medium tracking-widest uppercase transition-all duration-300"
+  >
+    Solicitar Orçamento <span class="ml-2">→</span>
+  </a>
+</div>
+  
+</section>
+
+<style>
+  .carousel-track {
+    animation: scroll 40s linear infinite;
+    min-width: max-content;
+  }
+  
+  /* Pause animation on hover */
+  .carousel-container:hover .carousel-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+</style>
+
+<script>
+  const modal = document.getElementById('portfolio-modal');
+  const modalImg = document.getElementById('modal-image') as HTMLImageElement;
+  const closeBtn = document.getElementById('close-modal');
+  const items = document.querySelectorAll('.carousel-item');
+  const tracks = document.querySelectorAll('.carousel-track');
+
+  function openModal(imgSrc: string) {
+    if(!modal || !modalImg) return;
+    
+    modalImg.src = imgSrc;
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    modal.classList.add('opacity-100', 'pointer-events-auto');
+    modalImg.classList.remove('scale-95');
+    modalImg.classList.add('scale-100');
+    
+    // Disable body scroll
+    document.body.style.overflow = 'hidden';
+    
+    // Pause carousel explicitly when modal is open
+    tracks.forEach(track => {
+      (track as HTMLElement).style.animationPlayState = 'paused';
+    });
+  }
+
+  function closeModal() {
+    if(!modal || !modalImg) return;
+    
+    modal.classList.remove('opacity-100', 'pointer-events-auto');
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    modalImg.classList.remove('scale-100');
+    modalImg.classList.add('scale-95');
+    
+    // Enable body scroll
+    document.body.style.overflow = '';
+    
+    // Resume carousel
+    tracks.forEach(track => {
+      (track as HTMLElement).style.animationPlayState = '';
+    });
+  }
+
+  items.forEach(item => {
+    item.addEventListener('click', () => {
+      const src = item.getAttribute('data-img');
+      if(src) openModal(src);
+    });
+  });
+
+  closeBtn?.addEventListener('click', closeModal);
+  
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal && modal.classList.contains('opacity-100')) {
+      closeModal();
+    }
+  });
+</script>

@@ -1,0 +1,54 @@
+---
+const navItems = [
+  { label: 'HOME', href: '#home' },
+  { label: 'SOBRE', href: '#sobre' },
+  { label: 'SERVIÇOS', href: '#servicos' },
+  { label: 'PORTFÓLIO', href: '#portfolio' },
+  { label: 'PROCESSO', href: '#processo' },
+  { label: 'CONTATO', href: '#contato' },
+];
+---
+
+<header class="fixed top-0 w-full z-50 bg-primary/90 backdrop-blur-md border-b border-white/5 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12 h-24 flex items-center justify-between">
+    <!-- Logo -->
+    <a href="#home" class="flex flex-col items-start group">
+      <div class="flex items-center space-x-2">
+        <svg class="w-6 h-6 text-accent group-hover:scale-110 transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 1 8.3C11.6 9 7.1 14 11 20c.6-1.2 1.6-2.5 3.2-3.2"/>
+        </svg>
+        <span class="font-serif text-2xl tracking-widest text-accent uppercase">Raiza</span>
+      </div>
+      <span class="text-[0.6rem] tracking-[0.2em] text-light/70 uppercase mt-1">Projetos Paisagísticos</span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center space-x-8">
+      <ul class="flex items-center space-x-8">
+        {navItems.map((item) => (
+          <li>
+            <a 
+              href={item.href} 
+              class="text-xs font-medium tracking-widest text-light/80 hover:text-accent transition-colors duration-300 uppercase"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <a 
+        href="#orcamento" 
+        class="ml-8 border border-accent/50 text-accent hover:bg-accent hover:text-primary px-6 py-2.5 text-xs font-medium tracking-widest uppercase transition-all duration-300"
+      >
+        Orçamento
+      </a>
+    </nav>
+
+    <!-- Mobile Menu Button -->
+    <button class="md:hidden text-light p-2">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+</header>
